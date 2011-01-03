@@ -347,7 +347,7 @@ function get_format( $string )
       
         case 'filelinks'       : return "<li><strong>%s</strong> - &nbsp;" .
                                         (SHOW_VIEW_FILE ? "<a href=\"%s\">VIEW FILE</a>&nbsp;&nbsp;" : '') .
-                                        "<a href=\"".BASEURL ."index.php?%s\">VIEW SOURCE</a>&nbsp;&nbsp;" . 
+                                        "<a href=\"".BASEURL ."index.php?%s\" class=\"viewsource\">VIEW SOURCE</a>&nbsp;&nbsp;" . 
                                         "<a href=\"". BASEURL ."download.php?%s\">DOWNLOAD</a>%s</li>\n";
                                         
         case 'directorylink'   : return '<li><a href="'. BASEURL .'index.php?%s" class="dirlink">' .
@@ -1121,6 +1121,22 @@ function search_data( $phrase, $case_sensitive=false, $search_params=array() )
 function get_formatted_search( $search, $case_sensitive=false, $search_params=array() )
 {
     $results = search_data( $search, $case_sensitive, $search_params );
-    if(count($results) < 1) return '<h2>No Results</h2>';
+    if(count($results) < 1) return '<h2 class="noresults">No Results</h2>';
     return sprintf(get_format('search_res_title'), $search) . format_display_data( $results );
+}
+
+
+/**
+ * Get File Syntax
+ *
+ * This retrieves the requested file and returns the contents with php's built-in syntax
+ * highlighting applied.  This is primarily used for AJAX requests.
+ *
+ * @param   string  $file       The file name with the full path
+ * @return  string              The HTML code with syntax highlighting applied
+ * @since   1.1
+ */
+function get_file_syntax( $file )
+{
+    return '<br />'.highlight_string( file_get_contents($file), true ).'<br />';
 }

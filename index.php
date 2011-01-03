@@ -46,7 +46,30 @@ else
 <head>
 <title>Collection</title>
 <link rel="stylesheet" href="system/style.css" type="text/css" media="screen" charset="utf-8" />
-
+<script src="system/js/jquery-1.4.4.min.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+<script src="system/js/scriptbox.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+<script type="text/javascript">
+// Script from http://m5url.me/placeholder - Pseudo placeholder support
+$(document).ready(function() {
+	if(!$.support.placeholder) { 
+		var active = document.activeElement;
+		$(':text').focus(function () {
+			if ($(this).attr('placeholder') != '' && $(this).val() == $(this).attr('placeholder')) {
+				$(this).val('').removeClass('hasPlaceholder');
+			}
+		}).blur(function () {
+			if ($(this).attr('placeholder') != '' && ($(this).val() == '' || $(this).val() == $(this).attr('placeholder'))) {
+				$(this).val($(this).attr('placeholder')).addClass('hasPlaceholder');
+			}
+		});
+		$(':text').blur();
+		$(active).focus();
+		$('form').submit(function () {
+			$(this).find('.hasPlaceholder').each(function() { $(this).val(''); });
+		});
+	}
+});
+</script>
 </head>
 <body>
 <div id="container">
@@ -79,7 +102,6 @@ else
                     (isset($_GET['file']) ? sanitize_path($_GET['file']):''));
             elseif(isset($_POST['search']) || isset($_GET['keyword']))
                 echo $search;
-            
         ?>
     </div><!-- #content -->
     <div id="footer">
