@@ -1,4 +1,24 @@
 <?php
+/**
+ * Scriptbox - Primary View File
+ *
+ * The index file handles all of the views and processes the requests accordingly.
+ *
+ * You are free to use this script as long as you abide by the terms of the
+ * <b>Creative Commons Attribution-ShareAlike 3.0 License</b>, which in summary means
+ * you must give credit to the author of Scriptbox in any derivative works and
+ * any derivative works must have a like license.
+ *
+ * Visit the license URL if you are not clear what the license means and need clearer details.
+ * Please enjoy and share!
+ *
+ * @category    Organization
+ * @package     Scripbox
+ * @version     1.0
+ * @author      David Miles <david@amereservant.com>
+ * @link        http://github.com/amereservant
+ * @license     http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported
+ */
 require_once 'system/functions.php';
 $error404 = false;
 

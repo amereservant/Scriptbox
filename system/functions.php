@@ -1,11 +1,27 @@
 <?php
-session_start();
-define('CATBASE', realpath('code/') . DIRECTORY_SEPARATOR);
-define('BASEURL', 'http://localhost/collection/');
-define('CATURL', BASEURL .'code/');
-define('SHOW_VIEW_FILE', true); // This should be set to false on a public server since
-                                // viewing the file executes the file and could potentially
-                                // expose secure information and create a security risk.
+/**
+ * Scriptbox - Core Functions
+ *
+ * These are the core functions used to provide functionality for Scriptbox.
+ *
+ * You are free to use this script as long as you abide by the terms of the
+ * <b>Creative Commons Attribution-ShareAlike 3.0 License</b>, which in summary means
+ * you must give credit to the author of Scriptbox in any derivative works and
+ * any derivative works must have a like license.
+ *
+ * Visit the license URL if you are not clear what the license means and need clearer details.
+ * Please enjoy and share!
+ *
+ * @category    Organization
+ * @package     Scripbox
+ * @version     1.0
+ * @author      David Miles <david@amereservant.com>
+ * @link        http://github.com/amereservant
+ * @license     http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported
+ */
+
+// Make SURE we have the configuration file. 
+require_once 'system/config.php';
 
 /**
  * Sanitize Path
@@ -327,36 +343,46 @@ function get_format( $string )
     $index_url = BASEURL .'index.php';
     
     switch( $string ) {
-        case 'viewing_category': return '<p class="viewing-category">' .
-                                        'You are currently viewing category: "<strong>%s</strong>"</p>';
+        case 'viewing_category': 
+            return '<p class="viewing-category">' .
+                   'You are currently viewing category: "<strong>%s</strong>"</p>';
         
-        case 'search_res_title': return '<p class="viewing-category">' .
-                                        'Search results for: "<strong>%s</strong>"</p>';
+        case 'search_res_title':
+            return '<p class="viewing-category">' .
+                   'Search results for: "<strong>%s</strong>"</p>';
         
-        case 'script_title'    : return '<h2 class="category-titles">'.
-                                        '<a href="'. $index_url .'?appname=%s&amp;category=%s" title="%s">'.
-                                        '%3$s</a></h2>';
+        case 'script_title':
+            return '<h2 class="category-titles">'.
+                   '<a href="'. $index_url .'?appname=%s&amp;category=%s" title="%s">'.
+                   '%3$s</a></h2>';
 
-        case 'keywords'        : return '<a href="'. $index_url .'?keyword=%s" '.
-                                        'title="Search for keyword `%1$s`">%1$s</a>';
+        case 'keywords':
+            return '<a href="'. $index_url .'?keyword=%s" '.
+                   'title="Search for keyword `%1$s`">%1$s</a>';
 
-        case 'info_summary'    : return '<div class="info-summary">'."\n\t" .
-                                        "<h2>%s</h2>\n\t" .
-                                        '<span class="meta">KEYWORDS: <span class="meta-items">%s</span>' .                                '&nbsp;&nbsp;&nbsp;CATEGORY: <span class="meta-items">%s</span>' .
-                                        "</span>\n\t<p>%s</p>\n</div>";
+        case 'info_summary':
+            return '<div class="info-summary">'."\n\t" .
+                   "<h2>%s</h2>\n\t" .
+                   '<span class="meta">KEYWORDS: <span class="meta-items">%s</span>' .
+                   '&nbsp;&nbsp;&nbsp;CATEGORY: <span class="meta-items">%s</span>' .
+                   "</span>\n\t<p>%s</p>\n</div>";
       
-        case 'filelinks'       : return "<li><strong>%s</strong> - &nbsp;" .
-                                        (SHOW_VIEW_FILE ? "<a href=\"%s\">VIEW FILE</a>&nbsp;&nbsp;" : '') .
-                                        "<a href=\"".BASEURL ."index.php?%s\" class=\"viewsource\">VIEW SOURCE</a>&nbsp;&nbsp;" . 
-                                        "<a href=\"". BASEURL ."download.php?%s\">DOWNLOAD</a>%s</li>\n";
+        case 'filelinks':
+            return "<li><strong>%s</strong> - &nbsp;" .
+                   (SHOW_VIEW_FILE ? "<a href=\"%s\">VIEW FILE</a>&nbsp;&nbsp;" : '') .
+                   "<a href=\"".BASEURL ."index.php?%s\" class=\"viewsource\">VIEW SOURCE</a>&nbsp;&nbsp;" . 
+                   "<a href=\"". BASEURL ."download.php?%s\">DOWNLOAD</a>%s</li>\n";
                                         
-        case 'directorylink'   : return '<li><a href="'. BASEURL .'index.php?%s" class="dirlink">' .
-                                        "<strong>%s</strong></a></li>\n";
+        case 'directorylink':
+            return '<li><a href="'. BASEURL .'index.php?%s" class="dirlink">' .
+                   "<strong>%s</strong></a></li>\n";
         
-        case 'error404'        : return '<div class="error404"><h2>ERROR 404 <span class="sub">' .
-                                        'Page doesn\'t exist!</span></h2></div>';
+        case 'error404':
+            return '<div class="error404"><h2>ERROR 404 <span class="sub">' .
+                   'Page doesn\'t exist!</span></h2></div>';
         // Die by default because sprintf won't issue an error if (bool) false is returned
-        default: die('Format '. $string .' not found!');
+        default: 
+            die('Format '. $string .' not found!');
     }
 }
 
